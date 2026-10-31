@@ -48,6 +48,48 @@ The project follows a modular architecture to ensure scalability:
   - Integrated navigation into the main application component (`App.js`)
   - Addressed vulnerabilities using `npm audit fix` (optional)
 
+### 5. CI/CD Pipeline Setup for iOS Build on Mac
+
+- **CI/CD Service:** GitHub Actions
+
+- **Initialization Commands Used:**
+
+  i) **Create a workflow file at `.github/workflows/ios-build.yml`**
+  ii) **Configure the workflow to use `macos-latest` runner**|
+
+- **Configuration:**
+  - Set up the workflow to trigger on push or pull request events to the `main` branch.
+  - Include steps to checkout the code, set up Ruby, install Bundler and Cocoapods, install dependencies, and build the project.
+  - Example configuration for `ios-build.yml`:
+
+  name: iOS Build
+
+  on:
+    push:
+      branches:
+        - main
+    pull_request:
+      branches:
+        - main
+
+  jobs:
+    build:
+      runs-on: macos-latest
+
+      steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.7'
+
+      - name: Install Bundler
+        run: gem install bundler
+
+      - name: Install Cocoapods
+        run: gem install cocoapods
+
 ## Upcoming Tasks
-- [ ] Environment Variable Integration (`react-native-config`)
 - [ ] Core Feature Development & UI Design

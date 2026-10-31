@@ -1,4 +1,4 @@
-# Resolve react_native_pods.rb with node to allow for hoisting
+platform :ios, '15.0'
 require Pod::Executable.execute_command('node', ['-p',
   'require.resolve(
     "react-native/scripts/react_native_pods.rb",
@@ -15,6 +15,7 @@ if linkage != nil
 end
 
 target 'OSINTReactNative' do
+  pod 'ReactNativeConfig', :path => '../node_modules/react-native-config'
   config = use_native_modules!
 
   use_react_native!(
